@@ -1,20 +1,16 @@
-import { Button } from '@/components/ui/button'
-import { getQueryClient, trpc } from '@/trpc/server'
-import Client from './client'
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+import { requireAuth } from '@/lib/auth-utils'
+import { caller } from '@/trpc/server'
+import { LogoutButton } from './logout'
 
 const Page = async () => {
-  const queryClient = getQueryClient()
+  await requireAuth()
 
-  void queryClient.prefetchQuery(trpc.getUsers.queryOptions())
+  const data = await caller.getUsers()
   return (
     <div>
-      <Button variant={'outline'}>Click Mme </Button>
-      <div>
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          <Client />
-        </HydrationBoundary>
-      </div>
+      Protected server component
+      <div>{JSON.stringify(data)}</div>
+      <LogoutButton />
     </div>
   )
 }
