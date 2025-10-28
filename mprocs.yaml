@@ -1,0 +1,9 @@
+procs:
+  inngest:
+    cmd: ['pnpm', 'dlx', 'inngest-cli@latest', 'dev']
+
+  next:
+    cmd: ['pnpm', 'dev']
+
+  prisma:
+    cmd: ['npx', 'prisma', 'studio']
