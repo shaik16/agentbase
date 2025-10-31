@@ -21,12 +21,22 @@ const Page = () => {
     })
   )
 
+  const testAi = useMutation(
+    trpc.testAI.mutationOptions({
+      onSuccess: () => {
+        toast.success('AI Job Queued')
+      },
+    })
+  )
   return (
     <div>
       Protected server component
       <div>Data: {JSON.stringify(data)}</div>
       <Button disabled={create.isPending} onClick={() => create.mutate()}>
         Create workflow
+      </Button>
+      <Button disabled={testAi.isPending} onClick={() => testAi.mutate()}>
+        Test AI
       </Button>
       <LogoutButton />
     </div>
